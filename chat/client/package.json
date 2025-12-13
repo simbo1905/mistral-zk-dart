@@ -1,0 +1,20 @@
+{
+  "name": "opaque-ts-client",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "dist/opaque-client.js",
+  "types": "dist/opaque-client.d.ts",
+  "scripts": {
+    "build": "esbuild src/opaque-client.ts --bundle --format=esm --outfile=dist/opaque-client.js --platform=browser && cp dist/opaque-client.js ../extension/opaque-client.js",
+    "build:types": "tsc --emitDeclarationOnly"
+  },
+  "dependencies": {
+    "@cloudflare/opaque-ts": "^0.7.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "esbuild": "^0.20.0",
+    "typescript": "^5.3.0"
+  }
+}

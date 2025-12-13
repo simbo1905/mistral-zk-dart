@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "OPAQUE Export Key Demo",
+  "version": "1.0.0",
+  "description": "Test harness for @cloudflare/opaque-ts in Chrome MV3",
+  "permissions": [
+    "sidePanel"
+  ],
+  "side_panel": {
+    "default_path": "sidebar.html"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "OPAQUE Test"
+  }
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test TypeScript Client with Dart Server</title>
+    <script type="module">
+        // Import the opaque-client from the chat extension
+        import { OpaqueClient } from './chat/extension/opaque-client.js';
+        
+        async function testDartServer() {
+            const client = new OpaqueClient('http://localhost:3457');
+            const username = 'test_user';
+            const password = 'test_password_123';
+            
+            console.log('🚀 Testing TypeScript client with Dart server');
+            
+            try {
+                // Test health check
+                console.log('🏥 Checking Dart server health...');
+                const health = await fetch('http://localhost:3457/health');
+                const healthData = await health.json();
+                console.log('Dart server response:', healthData);
+                
+                // Test registration
+                console.log('🔑 Registering user...');
+                const registerResponse = await fetch('http://localhost:3457/register/finish?username=' + username, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ password })
+                });
+                const registerData = await registerResponse.json();
+                console.log('Registration response:', registerData);
+                
+                // Test login
+                console.log('🔐 Logging in...');
+                const loginResponse = await fetch('http://localhost:3457/login/finish?username=' + username, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ password })
+                });
+                const loginData = await loginResponse.json();
+                console.log('Login response:', loginData);
+                
+                if (loginData.success) {
+                    console.log('🎉 SUCCESS: TypeScript client works with Dart server!');
+                    console.log('Export key:', loginData.exportKey);
+                } else {
+                    console.error('❌ Login failed');
+                }
+                
+            } catch (error) {
+                console.error('❌ Error:', error);
+            }
+        }
+        
+        // Run test when page loads
+        window.addEventListener('load', testDartServer);
+    </script>
+</head>
+<body>
+    <h1>Testing TypeScript Client with Dart Server</h1>
+    <p>Check browser console for results...</p>
+</body>
+</html>
