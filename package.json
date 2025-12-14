@@ -1,5 +1,20 @@
 {
+  "name": "mistral-zk-dart",
+  "version": "1.0.0",
+  "description": "OPAQUE protocol implementation with Dart and TypeScript interoperability",
+  "scripts": {
+    "test:interop": "node test_full_interop.js",
+    "test:dart-server": "node test_dart_server.js",
+    "test:dart": "cd dart_opaque && dart test",
+    "test:all": "npm run test:dart && npm run test:interop",
+    "server:ts": "cd chat/server && bun run dev",
+    "server:dart": "cd dart_opaque && dart run bin/dart_server.dart",
+    "build:client": "cd chat/client && bun run build"
+  },
   "dependencies": {
     "node-fetch": "2"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }
