@@ -8,6 +8,9 @@ const { promisify } = require('util');
 
 const sleep = promisify(setTimeout);
 
+// Configuration
+const SERVER_START_TIMEOUT = 15000; // ms
+
 // Test results tracking
 const results = {
   passed: 0,
@@ -27,7 +30,7 @@ async function startServer(name, command, port, expectedOutput) {
   return new Promise((resolve, reject) => {
     console.log(`\n🚀 Starting ${name}...`);
     const proc = spawn('sh', ['-c', command], {
-      cwd: '/home/runner/work/mistral-zk-dart/mistral-zk-dart',
+      cwd: process.cwd(),
       env: { ...process.env, PATH: `${process.env.HOME}/.bun/bin:/usr/lib/dart/bin:${process.env.PATH}` }
     });
     
@@ -48,7 +51,7 @@ async function startServer(name, command, port, expectedOutput) {
       }
     });
     
-    setTimeout(() => reject(new Error(`${name} failed to start`)), 10000);
+    setTimeout(() => reject(new Error(`${name} failed to start`)), SERVER_START_TIMEOUT);
   });
 }
 

@@ -54,7 +54,7 @@ async function startServer(name, command, port, expectedOutput, timeout = 15000)
   return new Promise((resolve, reject) => {
     log(`\n🚀 Starting ${name}...`, 'cyan');
     const proc = spawn('sh', ['-c', command], {
-      cwd: '/home/runner/work/mistral-zk-dart/mistral-zk-dart',
+      cwd: process.cwd(),
       env: { ...process.env, PATH: `${process.env.HOME}/.bun/bin:/usr/lib/dart/bin:${process.env.PATH}` }
     });
     
